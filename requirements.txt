@@ -1,0 +1,2 @@
+icontract>=2.5.0,<3
+fastapi>=0.63.0,<1
