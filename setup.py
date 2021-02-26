@@ -49,7 +49,8 @@ setup(
             "docutils>=0.14,<1",
             "httpx>=0.16.1,<1",
             "requests>=2.25.1,<3",
-            "uvicorn"
+            "uvicorn",
+            "asyncstdlib>=3.9.0,<4"
         ],
     },
     # fmt: on
