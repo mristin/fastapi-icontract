@@ -1,0 +1,349 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/has_author": {
+      "get": {
+        "summary": "Has Author",
+        "description": "Check if the author exists in the database.",
+        "operationId": "has_author_has_author_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            },
+            "name": "identifier",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Has Author Has Author Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/has_category": {
+      "get": {
+        "summary": "Has Category",
+        "operationId": "has_category_has_category_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Category",
+              "type": "string"
+            },
+            "name": "category",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Has Category Has Category Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books_in_category": {
+      "get": {
+        "summary": "Books In Category",
+        "description": "Retrieve the books of the given category from the database.",
+        "operationId": "books_in_category_books_in_category_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Category",
+              "type": "string"
+            },
+            "name": "category",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Books In Category Books In Category Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Book"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-contracts": {
+          "preconditions": [
+            {
+              "enforced": true,
+              "text": "has_category",
+              "language": "python3",
+              "statusCode": 404,
+              "description": "The category must exist."
+            }
+          ],
+          "snapshots": [],
+          "postconditions": [
+            {
+              "enforced": true,
+              "text": "a.all(await_each(has_author(book.author) for book in result))",
+              "language": "python3",
+              "statusCode": 500,
+              "description": "One ore more authors of the resulting books do not exist."
+            }
+          ]
+        }
+      }
+    },
+    "/has_book": {
+      "get": {
+        "summary": "Has Book",
+        "description": "Check whether the book exists.",
+        "operationId": "has_book_has_book_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Book Id",
+              "type": "string"
+            },
+            "name": "book_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Has Book Has Book Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/book_count": {
+      "get": {
+        "summary": "Book Count",
+        "description": "Count the available books.",
+        "operationId": "book_count_book_count_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Book Count Book Count Get",
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upsert_book": {
+      "post": {
+        "summary": "Add Book",
+        "operationId": "add_book_upsert_book_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-contracts": {
+          "preconditions": [],
+          "snapshots": [
+            {
+              "name": "book_count",
+              "enabled": true,
+              "text": "book_count()",
+              "language": "python3"
+            },
+            {
+              "name": "has_book",
+              "enabled": true,
+              "text": "has_book(book.identifier)",
+              "language": "python3"
+            }
+          ],
+          "postconditions": [
+            {
+              "enforced": true,
+              "text": "async_apply(\n        lambda a_book_count: (\n                OLD.book_count + 1 == a_book_count if not OLD.has_book\n                else OLD.book_count == a_book_count),\n        book_count())",
+              "language": "python3",
+              "statusCode": 500
+            },
+            {
+              "enforced": true,
+              "text": "has_book(book.identifier)",
+              "language": "python3",
+              "statusCode": 500
+            }
+          ]
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Book": {
+        "title": "Book",
+        "required": [
+          "identifier",
+          "author",
+          "category"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "title": "Identifier",
+            "type": "string"
+          },
+          "author": {
+            "title": "Author",
+            "type": "string"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
