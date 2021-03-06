@@ -93,7 +93,7 @@ The full documentation is available at: `fastapi-icontract.readthedocs.io`_.
 
 The following example is meant to invite you to further explore the extension.
 
-.. code-block::python
+.. code-block:: python
 
     from typing import Optional
 
