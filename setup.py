@@ -21,7 +21,7 @@ with open(os.path.join(here, "requirements.txt"), encoding="utf-8") as fid:
 
 setup(
     name="fastapi-icontract",
-    version="0.0.1",
+    version="0.0.2",
     description="Specify contracts for FastAPI endpoints.",
     long_description=long_description,
     url="https://github.com/mristin/fastapi-icontract",
