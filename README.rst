@@ -6,7 +6,7 @@ FastAPI-icontract
     :target: https://github.com/mristin/fastapi-icontract/actions?query=workflow%3ATest-on-push-to-main
     :alt: Test on push to main
 
-.. image:: https://coveralls.io/repos/github/mristin/fastapi-icontract/badge.svg?branch=main
+.. image:: https://coveralls.io/repos/github/mristin/fastapi-icontract/badge.svg?branch=master
     :target: https://coveralls.io/github/mristin/fastapi-icontract?branch=main
     :alt: Test coverage
 
