@@ -234,7 +234,9 @@ class snapshot:  # pylint: disable=invalid-name
             if contract_checker is None:
                 raise ValueError(
                     "You are decorating a function with a snapshot, "
-                    "but no postcondition was defined on the function before."
+                    "but no postcondition was defined on the function before. "
+                    "(If you defined one or more post-conditions, can it be that "
+                    "they are not enforced at the same time as this snapshot?)"
                 )
 
             result = contract_checker
