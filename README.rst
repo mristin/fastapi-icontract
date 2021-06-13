@@ -110,12 +110,12 @@ The following example is meant to invite you to further explore the extension.
 
     app = FastAPI()
 
-    @app.get("/has_author", reponse_model=bool)
+    @app.get("/has_author", response_model=bool)
     async def has_author(identifier: str):
         """Check if the author exists in the database."""
         ...
 
-    @app.get("/categories", reponse_model: List[str])
+    @app.get("/categories", response_model=List[str])
     async def get_categories():
         """Retrieve the list of available categories."""
         ...
