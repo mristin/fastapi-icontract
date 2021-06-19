@@ -95,11 +95,10 @@ The following example is meant to invite you to further explore the extension.
 
 .. code-block:: python
 
-    from typing import Optional
+    from typing import Optional, List, Any
 
     from fastapi import FastAPI
     from pydantic import BaseModel
-    from icontract import SLOW
     import asyncstdlib as a
 
     from fastapi_icontract import (
@@ -124,6 +123,11 @@ The following example is meant to invite you to further explore the extension.
         identifier: str
         author: str
 
+    @app.get("/has_category", response_model=bool)
+    async def has_category(identifier: str):
+        """Check if the author exists in the database."""
+        ...
+
     @app.get("/books_in_category", response_model=List[Book])
     @require(
         has_category, status_code=404, description="The category must exist."
@@ -147,10 +151,10 @@ The following example is meant to invite you to further explore the extension.
         ...
 
     @app.post("/upsert_book")
-    @fastapi_icontract.snapshot(lambda book: has_book(book.identifier), name="has_book")
-    @fastapi_icontract.snapshot(lambda: book_count(), name="book_count")
-    @fastapi_icontract.ensure(lambda book: has_book(book.identifier))
-    @fastapi_icontract.ensure(
+    @snapshot(lambda book: has_book(book.identifier), name="has_book")
+    @snapshot(lambda: book_count(), name="book_count")
+    @ensure(lambda book: has_book(book.identifier))
+    @ensure(
         lambda book, OLD: a.apply(
             lambda a_book_count: (
                     OLD.book_count + 1 == a_book_count if not OLD.has_book
