@@ -2,9 +2,9 @@
 FastAPI-icontract
 *****************
 
-.. image:: https://github.com/mristin/fastapi-icontract/workflows/Test-on-push-to-main/badge.svg
-    :target: https://github.com/mristin/fastapi-icontract/actions?query=workflow%3ATest-on-push-to-main
-    :alt: Test on push to main
+.. image:: https://github.com/mristin/fastapi-icontract/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/mristin/fastapi-icontract/actions/workflows/ci.yml
+    :alt: Continuous integration
 
 .. image:: https://coveralls.io/repos/github/mristin/fastapi-icontract/badge.svg?branch=master
     :target: https://coveralls.io/github/mristin/fastapi-icontract?branch=main
