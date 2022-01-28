@@ -1,3 +1,9 @@
+# Additional virtual environments
+/venv36/
+/venv37/
+/venv39/
+/venv310/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
